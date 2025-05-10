@@ -1,0 +1,36 @@
+syntax = "proto3"; // it means that used the last version of the Protobuf 
+
+package items; //namespace
+
+message ItemRequest { // This message is used to request information about a specific item from the server.
+  int32 id = 1;
+}
+
+message Item { // This message represents the structure of a single item with an id and a name. It is used to send or receive full information about an item.
+  int32 id = 1;
+  string name = 2;
+}
+
+// Didnt use .... 
+message ItemResponse { // This message is specifically used as a response format when the server sends back the details of an item. It is almost identical to Item, but it's often used for clarity in RPC method signatures.
+  int32 id = 1;
+  string name = 2;
+}
+
+message Empty {} // This is a placeholder message used when no specific data is needed for a request or response.
+
+message ItemsAddedResult { // This message is returned when multiple items are added using the AddItems method. It simply indicates how many items were successfully added.
+  int32 count = 1;
+}
+
+message ChatMessage { // This message is used in bidirectional streaming (ChatAboutItems). It allows the client and server to exchange text-based messages.
+  string user = 1;
+  string message = 2;
+}
+
+service ItemService {
+  rpc GetItemById (ItemRequest) returns (Item); // Gets details of a specific item by ID.         
+  rpc ListAllItems (Empty) returns (stream Item); // Gets details of a specific item by ID.            
+  rpc AddItems (stream Item) returns (ItemsAddedResult); // Adds multiple items in one stream.     
+  rpc ChatAboutItems (stream ChatMessage) returns (stream ChatMessage); // Real-time chat communication.
+}

@@ -1,0 +1,13 @@
+# Ignore system files
+.DS_Store
+.Trash/
+Desktop/
+Downloads/
+Applications/
+Library/
+Movies/
+Music/
+Pictures/
+Public/
+StudioProjects/
+PycharmProjects/
