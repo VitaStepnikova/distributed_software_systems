@@ -3,11 +3,16 @@ from concurrent import futures
 import items_pb2
 import items_pb2_grpc
 
+import logging
+
+# Set the logging level to ERROR to remove unnecessary INFO and DEBUG logs.
+logging.basicConfig(level=logging.ERROR)
+
 # Initialize the list of elements
 items = [
-    {"id": 1, "name": "Item 1"},
-    {"id": 2, "name": "Item 2"},
-    {"id": 3, "name": "Item 3"}
+    {"id": 1, "name": "Item 1", "description": "Description of Item 1." * 1000},
+    {"id": 2, "name": "Item 2", "description": "Description of Item 2." * 1000},
+    {"id": 3, "name": "Item 3", "description": "Description of Item 3." * 1000}
 ]
 
 # ID counter for new objects
@@ -16,13 +21,18 @@ current_id = 4
 class ItemService(items_pb2_grpc.ItemServiceServicer):
 
     def GetItemById(self, request, context):
-        print(f"Request to get an object with ID: {request.id}")
+        print(f"Запрос на получение объекта с ID: {request.id}")
         for item in items:
             if item['id'] == request.id:
-                return items_pb2.Item(id=item['id'], name=item['name'])
+                return items_pb2.Item(
+                    id=item['id'], 
+                    name=item['name'],
+                    description=item['description']
+                )
         context.set_code(grpc.StatusCode.NOT_FOUND)
         context.set_details('Item not found')
         return items_pb2.Item(id=-1, name="Not Found")
+
 
     def ListAllItems(self, request, context):
         print("Request to get all objects")
@@ -46,7 +56,7 @@ class ItemService(items_pb2_grpc.ItemServiceServicer):
 
 
 def serve():
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=100))
     items_pb2_grpc.add_ItemServiceServicer_to_server(ItemService(), server)
     server.add_insecure_port('0.0.0.0:50051')
     server.start()

@@ -1,14 +1,29 @@
 from flask import Flask, request, jsonify
 from ItemClass import Item
 from functions import save_items_to_file, load_items_from_file
+import logging
+
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
 
 app = Flask(__name__)
+
+# @app.route("/items", methods=["GET"])
+# def items_get():
+#     items = load_items_from_file('items.json')
+#     return jsonify([item.to_dict() for item in items]), 200
 
 @app.route("/items", methods=["GET"])
 def items_get():
     items = load_items_from_file('items.json')
+    
+    # Let's add additional load to each element
+    for item in items:
+        item.description = "This is a very large description for testing REST vs gRPC performance." * 100
+        item.metadata = {"created_at": "2025-05-10", "updated_at": "2025-05-11"}
+        item.extra_data = [i for i in range(10000)]  # Add an array of 10000 elements
+    
     return jsonify([item.to_dict() for item in items]), 200
-
 
 @app.route("/items/<int:id>", methods=["GET"])
 def items_id_get(id): 

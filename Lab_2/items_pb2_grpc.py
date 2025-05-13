@@ -60,28 +60,29 @@ class ItemServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def GetItemById(self, request, context):
-        """🔹 Возвращаем Item, а не ItemResponse
+        """Gets details of a specific item by ID.         
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def ListAllItems(self, request, context):
-        """🔹 Возвращаем список Item
+        """Gets details of a specific item by ID.            
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def AddItems(self, request_iterator, context):
-        """🔹 Добавляем Item
+        """Adds multiple items in one stream.     
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def ChatAboutItems(self, request_iterator, context):
-        """Missing associated documentation comment in .proto file."""
+        """Real-time chat communication.
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')

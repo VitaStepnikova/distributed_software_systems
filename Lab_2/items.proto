@@ -9,6 +9,7 @@ message ItemRequest { // This message is used to request information about a spe
 message Item { // This message represents the structure of a single item with an id and a name. It is used to send or receive full information about an item.
   int32 id = 1;
   string name = 2;
+  string description = 3;
 }
 
 // Didnt use .... 
