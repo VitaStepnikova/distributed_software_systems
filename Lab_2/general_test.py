@@ -11,20 +11,20 @@ grpc_output_file = 'grpc_times2.txt'
 requests_list = [100, 500, 1000, 5000, 10000, 15000, 20000]
 
 if not os.path.exists(rest_script):
-    print(f"❌ File not found: {rest_script}")
+    print(f"File not found: {rest_script}")
     exit(1)
 
 if not os.path.exists(grpc_script):
-    print(f"❌ File not found: {grpc_script}")
+    print(f"File not found: {grpc_script}")
     exit(1)
 
 performance_data = []
 
 for num_requests in requests_list:
-    print(f"\n🚀 Running tests with {num_requests} requests...")
+    print(f"\nRunning tests with {num_requests} requests...")
 
     try:
-        print("🌐 Running REST tests...")
+        print("Running REST tests...")
         result = subprocess.run(f"python3 {rest_script} {num_requests}", shell=True)
 
         with open(rest_output_file, 'r') as f:
@@ -38,16 +38,16 @@ for num_requests in requests_list:
                 rest_avg_time = float(line.split(': ')[1].strip().split()[0])
 
         if rest_total_time is None or rest_avg_time is None:
-            print(f"❌ Failed to parse REST results from {rest_output_file}")
+            print(f"Failed to parse REST results from {rest_output_file}")
             continue
 
     except subprocess.CalledProcessError as e:
-        print("❌ Error during REST script execution:")
+        print("Error during REST script execution:")
         print(e.stderr.decode())
         continue
 
     try:
-        print("🔌 Running gRPC tests...")
+        print("Running gRPC tests...")
         
 
         subprocess.run(f"python3 {grpc_script} {num_requests}", shell=True)
@@ -64,11 +64,11 @@ for num_requests in requests_list:
                 grpc_avg_time = float(line.split(': ')[1].strip().split()[0])
 
         if grpc_total_time is None or grpc_avg_time is None:
-            print(f"❌ Failed to parse gRPC results from {grpc_output_file}")
+            print(f"Failed to parse gRPC results from {grpc_output_file}")
             continue
 
     except subprocess.CalledProcessError as e:
-        print("❌ Error during gRPC script execution:")
+        print("Error during gRPC script execution:")
         print(e.stderr.decode())
         continue
 

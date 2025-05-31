@@ -3,7 +3,6 @@ import time
 import items_pb2
 import items_pb2_grpc
 
-
 # Setting up a connection to the server
 channel = grpc.insecure_channel('localhost:50051')
 
