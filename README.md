@@ -80,3 +80,16 @@ docker build -t my-grpc-server:1.1 .
 docker rm -f grpc-server-container
 docker run -d --name grpc-server-container -p 50051:50051 my-grpc-server:1.1
 ```
+### Sequence Diagrams
+## Unary RPC – GetItemById
+![image](https://github.com/user-attachments/assets/157ee7ff-c00e-4cf7-9bd6-d2305525f6ca)
+## Server-streaming RPC – ListAllItems
+![image](https://github.com/user-attachments/assets/24a0e9c0-dabc-447d-b1a4-7d39379c52c4)
+## Client-streaming RPC – AddItems
+![image](https://github.com/user-attachments/assets/70456e92-088c-420e-8f6d-538e30a4ede1)
+## Bidirectional-streaming RPC – ChatAboutItems
+![image](https://github.com/user-attachments/assets/d41d81d1-f36a-434c-a26b-210379f9c713)
+
+
+
+
