@@ -53,9 +53,22 @@ docker logs -f grpc-server-container         # tail the logs
 python Lab_2/grpc_client.py
 ```
 **The script demonstrates:**
-Unary – GetItemById
-Server-streaming – ListAllItems
-Client-streaming – AddItems
-Bidirectional – ChatAboutItems
+- Unary – GetItemById
+- Server-streaming – ListAllItems
+- Client-streaming – AddItems
+- Bidirectional – ChatAboutItems
+
+## 6. Reflection with grpcurl (optional)
+```
+grpcurl -plaintext localhost:50051 list
+grpcurl -plaintext localhost:50051 list items.ItemService
+grpcurl -plaintext -d '{"id":1}' localhost:50051 items.ItemService/GetItemById
+```
+## 7. Performance tests
+| Script                  | Location | What it does                                        |
+| ----------------------- | -------- | ----------------------------------------------------|
+| `parallel_rest_test.py` | `Lab_1/` | fires concurrent REST calls at `localhost:5000`     |
+| `grpc_test.py`          | `Lab_2/` | fires concurrent gRPC calls at `localhost:50051`    |
+| `general_test.py`       | `Lab_2/` | orchestrates both scripts for 100 → 20 000 requests |
 
 
