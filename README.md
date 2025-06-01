@@ -71,4 +71,12 @@ grpcurl -plaintext -d '{"id":1}' localhost:50051 items.ItemService/GetItemById
 | `grpc_test.py`          | `Lab_2/` | fires concurrent gRPC calls at `localhost:50051`    |
 | `general_test.py`       | `Lab_2/` | orchestrates both scripts for 100 → 20 000 requests |
 
-
+## 8. Rebuilding after code changes
+1. Edit your Python files.
+2. Re-generate stubs if you changed items.proto.
+3. Re-build & re-run the image:
+```
+docker build -t my-grpc-server:1.1 .
+docker rm -f grpc-server-container
+docker run -d --name grpc-server-container -p 50051:50051 my-grpc-server:1.1
+```
